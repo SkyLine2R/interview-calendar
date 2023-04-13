@@ -1,0 +1,54 @@
+* {
+  font-family: "Roboto", sans-serif;
+}
+main {
+  width: 640px;
+  margin: auto;
+}
+.header {
+  padding: 10px 48px;
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 570;
+  letter-spacing: -0.7px;
+  word-spacing: 3px;
+}
+
+.button {
+  font-size: 16px;
+  font-weight: 100;
+  padding: 0;
+  border: none;
+  background: none;
+  color: red;
+}
+.button-plus {
+  padding-bottom: 14px;
+  font-size: 50px;
+  font-weight: 300;
+}
+
+.date-section {
+  display: flex;
+  padding-left: 100px;
+  background-color: #f6f6f6;
+  border-style: solid none solid none;
+  border-color: #dcdcdc;
+  border-width: 1px;
+  height: 144px;
+}
+.days-title {
+  display: flex;
+  width: 100%;
+}
+.week-days {
+  font-size: 18px;
+  font-weight: 400;
+
+  justify-content: space-between;
+}
