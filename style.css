@@ -1,6 +1,13 @@
-* {
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
   font-family: "Roboto", sans-serif;
 }
+
 main {
   width: 640px;
   margin: auto;
@@ -9,7 +16,7 @@ main {
   padding: 10px 48px;
   display: flex;
   justify-content: space-between;
-  height: 100px;
+  height: 120px;
 }
 
 h1 {
@@ -28,27 +35,67 @@ h1 {
   color: red;
 }
 .button-plus {
-  padding-bottom: 14px;
   font-size: 50px;
   font-weight: 300;
+  padding-bottom: 15px;
 }
 
-.date-section {
+.dates-section {
   display: flex;
-  padding-left: 100px;
+  flex-wrap: wrap;
   background-color: #f6f6f6;
   border-style: solid none solid none;
   border-color: #dcdcdc;
   border-width: 1px;
   height: 144px;
+  width: 540px;
+  width: 100%;
 }
-.days-title {
-  display: flex;
+.table-days-title {
+  font-weight: 600;
+  width: 100%;
+  padding-top: 12px;
+}
+
+.table-days-title tbody {
+  text-align: center;
   width: 100%;
 }
 .week-days {
-  font-size: 18px;
-  font-weight: 400;
-
+  font-size: 16px;
   justify-content: space-between;
+}
+.days-title {
+  font-size: 26px;
+}
+
+.month-days {
+  font-size: 30px;
+  height: 60px;
+}
+
+.table-days-title td {
+  width: 12.5%;
+  /* background-color: red; */
+}
+
+.selected {
+  color: white;
+  border: 8px solid red;
+  background-color: red;
+  border-radius: 100%;
+  width: 70%;
+  height: 80%;
+  margin: auto;
+}
+
+/* .arrow-button {
+  color: red;
+  font-size: 50px;
+  font-weight: 400;
+} */
+
+svg {
+  width: 200px;
+  color: red;
 }
