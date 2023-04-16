@@ -11,17 +11,19 @@ html {
 main {
   width: 640px;
   margin: auto;
+  background-color: #f6f6f6;
 }
 .header {
   padding: 10px 48px;
   display: flex;
   justify-content: space-between;
   height: 120px;
+  background-color: white;
 }
 
 h1 {
   font-size: 36px;
-  font-weight: 570;
+  font-weight: 600;
   letter-spacing: -0.7px;
   word-spacing: 3px;
 }
@@ -43,59 +45,126 @@ h1 {
 .dates-section {
   display: flex;
   flex-wrap: wrap;
+  justify-content: end;
   background-color: #f6f6f6;
   border-style: solid none solid none;
   border-color: #dcdcdc;
   border-width: 1px;
   height: 144px;
-  width: 540px;
   width: 100%;
 }
 .table-days-title {
   font-weight: 600;
   width: 100%;
-  padding-top: 12px;
+  padding-top: 13px;
 }
 
-.table-days-title tbody {
+.tbody-days-title {
   text-align: center;
-  width: 100%;
+  vertical-align: top;
 }
+
 .week-days {
   font-size: 16px;
   justify-content: space-between;
-}
-.days-title {
-  font-size: 26px;
+  height: 30px;
 }
 
 .month-days {
-  font-size: 30px;
-  height: 60px;
+  font-size: 28px;
+  height: 50px;
 }
 
 .table-days-title td {
   width: 12.5%;
-  /* background-color: red; */
 }
 
 .selected {
+  position: relative;
+  top: -8px;
   color: white;
   border: 8px solid red;
   background-color: red;
   border-radius: 100%;
   width: 70%;
   height: 80%;
-  margin: auto;
+  margin: 0 auto;
 }
 
-/* .arrow-button {
+.arrow-button {
+  width: 22px;
   color: red;
-  font-size: 50px;
-  font-weight: 400;
-} */
+  stroke-width: 5px;
+}
 
-svg {
-  width: 200px;
-  color: red;
+.month-select {
+  display: flex;
+  align-items: center;
+  width: 87.5%;
+  padding: 0 30px;
+  position: relative;
+  bottom: 10px;
+  justify-content: space-between;
+}
+.month-name {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.todo-section {
+  border-collapse: collapse;
+}
+.todo-section td {
+  width: 5rem;
+  height: 70px;
+  background-color: white;
+  border: 2px solid #f6f6f6;
+}
+
+.todo-section td:hover {
+  background-color: rgb(214, 197, 255);
+}
+
+table .selected-cell div {
+  width: 97%;
+  height: 97%;
+  margin: auto;
+  background-color: rgb(238, 230, 255);
+}
+
+table .time-cell {
+  border: none;
+  font-size: 21px;
+  font-weight: 600;
+  text-align: right;
+  padding-right: 8px;
+  color: #dcdcdc;
+  position: relative;
+}
+.time-text {
+  position: relative;
+  top: 50%;
+  z-index: 5;
+}
+
+.todo-section tr:nth-child(2) {
+  background-color: red;
+}
+
+.time-cell ~ td:nth-child(2) {
+  border-left: none;
+}
+
+.panel-button {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 80px;
+  border-top: 2px solid #f6f6f6;
+}
+
+.panel-button .button {
+  font-size: 26px;
+  font-weight: 600;
+  margin: auto 50px;
 }
