@@ -4,14 +4,30 @@ import DatesSelectSection from "./datesSelectSection";
 import InterviewSection from "./interviewSection";
 import Button from "./button";
 
+// const widthFrame = window.matchMedia("screen and (max-width: 740px)").matches ?
+
+if (window.matchMedia("screen and (max-width: 740px)").matches) {
+  console.log("Меньше 740");
+} else {
+  // ... действия, если устройство не соответствует значениям медиа-запроса
+}
+
 const AppWrapper = styled.div`
-  background-color: #f6f6f6;
+  padding-bottom: 100px;
 `;
 
 const Fixed = styled.div`
   position: fixed;
   z-index: 500;
   width: 640px;
+`;
+
+const FixedTop = styled(Fixed)`
+  top: 0px;
+`;
+
+const FixedBottom = styled(Fixed)`
+  bottom: 0px;
 `;
 
 const Header = styled.div`
@@ -30,33 +46,41 @@ const AppName = styled.h1`
 `;
 
 const AppPanel = styled.div`
+  bottom: 0;
   display: flex;
   justify-content: space-between;
+  background-color: #f6f6f6;
   width: 100%;
-  height: 80px;
+  height: 90px;
   border-top: 2px solid #f6f6f6;
   Button {
     margin: auto 50px;
   }
 `;
 
+const Main = styled.div`
+  margin-top: 270px;
+`;
+
 function App() {
   return (
     <AppWrapper>
-      <Fixed>
+      <FixedTop>
         <Header>
           <AppName>Interview Calendar</AppName>
           <Button fontSize={52}>+</Button>
         </Header>
         <DatesSelectSection />
-      </Fixed>
-      <main>
+      </FixedTop>
+      <Main>
         <InterviewSection />
-      </main>
-      <AppPanel>
-        <Button>Today</Button>
-        <Button hide={false}>Delete</Button>
-      </AppPanel>
+      </Main>
+      <FixedBottom>
+        <AppPanel>
+          <Button>Today</Button>
+          <Button hide={false}>Delete</Button>
+        </AppPanel>
+      </FixedBottom>
     </AppWrapper>
   );
 }

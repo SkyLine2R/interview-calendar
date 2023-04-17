@@ -18,18 +18,18 @@ const InterviewTime = [
 const InterviewSectionWrap = styled.table`
   border-collapse: collapse;
   td {
-    width: 6rem;
+    width: 5rem;
     height: 67px;
     background-color: white;
-    border: 2px solid #f8f8f8;
+    border: 2px solid #dcdcdc;
   }
   td:hover {
     background-color: rgb(214, 197, 255);
   }
 `;
 const SelectedCells = styled.div`
-  width: 95%;
-  height: 95%;
+  width: 96%;
+  height: 96%;
   margin: auto;
   background-color: #ebecff;
 `;
@@ -69,7 +69,7 @@ function InterviewSection() {
           </tr>
         );
       })}
-      /*
+      {/*
       <tr>
         <CellWithTime>
           <span>09:00</span>
