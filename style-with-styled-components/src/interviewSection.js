@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Fragment } from "react";
 
 const InterviewTime = [
   "08",
@@ -21,21 +22,27 @@ const daysInMonth = function (myDate) {
 
 const createMonthCalendar = function (calendarDate) {
   const daysInMoth = daysInMonth(calendarDate);
-  let element = [];
+  let elements = [];
   for (let hours = 0; hours < 24; hours++) {
-    element[hours] = [hours.toString().length - 1 ? hours : `0${hours}`];
+    /*     element[hours] = [hours.toString().length - 1 ? hours : `0${hours}`];
+     */
+    elements.push([0]);
     for (let day = 1; day <= daysInMoth; day++) {
-      element[hours].push(Math.round(Math.random())); // заменить на вставку данных БД
+      elements[hours].push(Math.round(Math.random())); // заменить на вставку данных БД
     }
   }
+  return elements;
 };
 
 const nowMothCalendar = createMonthCalendar(new Date(Date.now()));
+console.log(nowMothCalendar);
 
 const InterviewSectionWrap = styled.table`
   border-collapse: collapse;
+  overflow: scroll;
+
   td {
-    width: 5rem;
+    width: 67px; // 5rem
     height: 67px;
     background-color: white;
     border: 2px solid #dcdcdc;
@@ -70,7 +77,33 @@ const CellWithTime = styled.td`
 function InterviewSection() {
   return (
     <InterviewSectionWrap>
-      {InterviewTime.map((time) => {
+      <tbody>
+        {nowMothCalendar.map((time, index) => {
+          return (
+            <Fragment key={index}>
+              <tr>
+                <CellWithTime>
+                  {index > 9 ? `${index}` : `0${index}`}
+                </CellWithTime>
+                {time.map((val, index) => {
+                  return val ? (
+                    <td key={index}>
+                      <SelectedCells />
+                    </td>
+                  ) : (
+                    <td></td>
+                  );
+                })}
+              </tr>
+            </Fragment>
+          );
+        })}
+      </tbody>
+    </InterviewSectionWrap>
+  );
+}
+
+/*      {InterviewTime.map((time) => {
         return (
           <tr>
             <CellWithTime>
@@ -86,7 +119,7 @@ function InterviewSection() {
           </tr>
         );
       })}
-      {/*
+      {
       <tr>
         <CellWithTime>
           <span>09:00</span>
@@ -128,10 +161,6 @@ function InterviewSection() {
         <td></td>
         <td></td>
         <td></td>
-      </tr>{" "}
-      */}
-    </InterviewSectionWrap>
-  );
-}
+      </tr>{" "} */
 
 export default InterviewSection;
