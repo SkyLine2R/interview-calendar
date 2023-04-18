@@ -1,21 +1,6 @@
 import styled from "styled-components";
 import { Fragment } from "react";
 
-const InterviewTime = [
-  "08",
-  "09",
-  "10",
-  "11",
-  "12",
-  "13",
-  "14",
-  "15",
-  "16",
-  "17",
-  "18",
-  "19",
-];
-
 const daysInMonth = function (myDate) {
   return 33 - new Date(myDate.getFullYear(), myDate.getMonth(), 33).getDate();
 };
@@ -24,23 +9,22 @@ const createMonthCalendar = function (calendarDate) {
   const daysInMoth = daysInMonth(calendarDate);
   let elements = [];
   for (let hours = 0; hours < 24; hours++) {
-    /*     element[hours] = [hours.toString().length - 1 ? hours : `0${hours}`];
-     */
     elements.push([0]);
     for (let day = 1; day <= daysInMoth; day++) {
-      elements[hours].push(Math.round(Math.random())); // заменить на вставку данных БД
+      // рандомные данные для таблицы
+      // заменить на подстановку данных БД (1-событие 0-ничего)
+      elements[hours].push(Math.round(Math.random()));
     }
   }
   return elements;
 };
 
 const nowMothCalendar = createMonthCalendar(new Date(Date.now()));
-console.log(nowMothCalendar);
 
 const InterviewSectionWrap = styled.table`
   border-collapse: collapse;
+  position: absolute;
   overflow: scroll;
-
   td {
     width: 67px; // 5rem
     height: 67px;
@@ -83,7 +67,7 @@ function InterviewSection() {
             <Fragment key={index}>
               <tr>
                 <CellWithTime>
-                  {index > 9 ? `${index}` : `0${index}`}
+                  {index > 9 ? `${index}:00` : `0${index}:00`}
                 </CellWithTime>
                 {time.map((val, index) => {
                   return val ? (
