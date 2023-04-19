@@ -24,7 +24,7 @@ const nowMothCalendar = createMonthCalendar(new Date(Date.now()));
 const InterviewSectionWrap = styled.table`
   border-collapse: collapse;
   position: absolute;
-  overflow: scroll;
+  overflow: hidden;
   td {
     width: 67px; // 5rem
     height: 67px;
