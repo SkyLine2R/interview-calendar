@@ -12,6 +12,36 @@ if (window.matchMedia("screen and (max-width: 740px)").matches) {
   // ... действия, если устройство не соответствует значениям медиа-запроса
 }
 
+const getDate = (date) =>
+  new Date(date).toLocaleString("en", {
+    weekday: "short",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+const today = new Date(Date.now());
+const firstDay = new Date(Date.now());
+firstDay.setHours(0, 0, 0);
+
+console.log("asdfasdfasdf");
+console.log(new Date(firstDay.setMonth(firstDay.getMonth() + 12)));
+
+console.log(firstDay);
+
+const watchWeek = function (firstDay) {
+  const obj = { weekDays: [], days: [], interviewCalendar: [] };
+  let dayNow = firstDay;
+  for (let i = 1; i < 8; i++) {
+    obj.weekDays.push(dayNow.toString()[0]);
+    console.log(dayNow.toString()[0]);
+    dayNow = new Date(firstDay.setMonth(firstDay.getMonth() + i));
+    console.log(dayNow);
+  }
+};
+
+watchWeek(firstDay);
+
 const AppWrapper = styled.div`
   padding-bottom: 100px;
 `;
@@ -60,6 +90,12 @@ const AppPanel = styled.div`
 
 const Main = styled.div`
   margin-top: 270px;
+  width: 640px;
+  overflow-x: auto;
+`;
+
+const Div = styled.div`
+  display: inline-block;
 `;
 
 function App() {
@@ -73,7 +109,9 @@ function App() {
         <DatesSelectSection />
       </FixedTop>
       <Main>
-        <InterviewSection />
+        <Div>
+          <InterviewSection />
+        </Div>
       </Main>
       <FixedBottom>
         <AppPanel>

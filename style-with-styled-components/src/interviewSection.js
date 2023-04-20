@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 
 const daysInMonth = function (myDate) {
   return 33 - new Date(myDate.getFullYear(), myDate.getMonth(), 33).getDate();
@@ -23,8 +23,7 @@ const nowMothCalendar = createMonthCalendar(new Date(Date.now()));
 
 const InterviewSectionWrap = styled.table`
   border-collapse: collapse;
-  position: absolute;
-  overflow: hidden;
+  width: 100%;
   td {
     width: 67px; // 5rem
     height: 67px;
@@ -59,6 +58,9 @@ const CellWithTime = styled.td`
 `;
 
 function InterviewSection() {
+  const [interviewCalendar, setInterviewCalendar] = useState([]);
+  const [viewDates, setViewDates] = useState([]);
+
   return (
     <InterviewSectionWrap>
       <tbody>
@@ -67,7 +69,7 @@ function InterviewSection() {
             <Fragment key={index}>
               <tr>
                 <CellWithTime>
-                  {index > 9 ? `${index}:00` : `0${index}:00`}
+                  {`${index < 10 ? `0${index}` : `${index}`}:00`}
                 </CellWithTime>
                 {time.map((val, index) => {
                   return val ? (
@@ -86,65 +88,5 @@ function InterviewSection() {
     </InterviewSectionWrap>
   );
 }
-
-/*      {InterviewTime.map((time) => {
-        return (
-          <tr>
-            <CellWithTime>
-              <span>{`${time}:00`}</span>
-            </CellWithTime>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-        );
-      })}
-      {
-      <tr>
-        <CellWithTime>
-          <span>09:00</span>
-        </CellWithTime>
-        <td></td>
-        <td></td>
-        <td>
-          <SelectedCells />
-        </td>
-        <td></td>
-        <td></td>
-        <td>
-          <div></div>
-        </td>
-        <td></td>
-      </tr>
-      <tr>
-        <CellWithTime>
-          <span>10:00</span>
-        </CellWithTime>
-        <td>
-          <SelectedCells />
-        </td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <CellWithTime>
-          <span>11:00</span>
-        </CellWithTime>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>{" "} */
 
 export default InterviewSection;

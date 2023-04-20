@@ -8,7 +8,7 @@ const Mybutton = styled.button`
   color: red;
   display: ${!((props) => props.hide || "none")};
   animation-duration: 1s;
-  transition: all 0.3s ease-out;
+  transition: all 0.1s ease-out;
   :hover {
     transform: scale(1.3);
     opacity: 0.9;
