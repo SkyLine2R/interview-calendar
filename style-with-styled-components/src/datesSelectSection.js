@@ -61,23 +61,27 @@ const MonthName = styled.div`
   letter-spacing: -0.6px;
 `;
 
-function DatesSelectSection() {
+function DatesSelectSection({ interviewCalendar }) {
+  const { today, weekDays } = { ...interviewCalendar };
+  console.log(today);
   return (
     <DatesSection>
       <TableDaysTitle>
         <TbodyDaysTitle>
           <WeekDays>
             <td></td>
-            <td>M</td>
-            <td>T</td>
-            <td>W</td>
-            <td>T</td>
-            <td>F</td>
-            <td>S</td>
-            <td>S</td>
+            {weekDays.map((date) => (
+              <td>{date.day}</td>
+            ))}
           </WeekDays>
           <MothDays>
             <td></td>
+            {/* Проверить как высчитываются даты
+    изменить сохранение date - в полном формате, чтобы можно было сравнить с текущим днём или, лучше в стартовой функции сделать пометку - today = true  чтобы уменьшить время проверок
+
+{weekDays.map((date) => (
+              <td>{date.get === }</td>
+            ))} */}
             <td>25</td>
             <td>26</td>
             <td>27</td>

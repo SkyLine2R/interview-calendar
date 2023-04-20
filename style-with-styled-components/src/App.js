@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 
 import DatesSelectSection from "./datesSelectSection";
 import InterviewSection from "./interviewSection";
@@ -11,36 +12,32 @@ if (window.matchMedia("screen and (max-width: 740px)").matches) {
 } else {
   // ... действия, если устройство не соответствует значениям медиа-запроса
 }
-
+/* 
 const getDate = (date) =>
   new Date(date).toLocaleString("en", {
     weekday: "short",
     year: "numeric",
     month: "long",
     day: "numeric",
-  });
+  }); */
 
-const today = new Date(Date.now());
-const firstDay = new Date(Date.now());
-firstDay.setHours(0, 0, 0);
+const watchWeek = function () {
+  const today = new Date(Date.now());
+  today.setHours(0, 0, 0);
 
-console.log("asdfasdfasdf");
-console.log(new Date(firstDay.setMonth(firstDay.getMonth() + 12)));
+  const obj = { today: today, firstViewDay: today, weekDays: [] };
 
-console.log(firstDay);
-
-const watchWeek = function (firstDay) {
-  const obj = { weekDays: [], days: [], interviewCalendar: [] };
-  let dayNow = firstDay;
-  for (let i = 1; i < 8; i++) {
-    obj.weekDays.push(dayNow.toString()[0]);
-    console.log(dayNow.toString()[0]);
-    dayNow = new Date(firstDay.setMonth(firstDay.getMonth() + i));
-    console.log(dayNow);
+  let dayNow = today;
+  for (let i = 0; i < 7; i++) {
+    obj.weekDays.push({
+      day: dayNow.toString()[0],
+      date: dayNow.getDate(),
+      interviewTime: localStorage.getItem(dayNow.toString())?.split(",") || [],
+    });
+    dayNow = new Date(today.setDate(today.getDate() + i));
   }
+  return { ...obj };
 };
-
-watchWeek(firstDay);
 
 const AppWrapper = styled.div`
   padding-bottom: 100px;
@@ -99,6 +96,11 @@ const Div = styled.div`
 `;
 
 function App() {
+  const [interviewCalendar, setInterviewCalendar] = useState([]);
+
+  useEffect(() => {
+    setInterviewCalendar(watchWeek());
+  }, []);
   return (
     <AppWrapper>
       <FixedTop>
@@ -106,7 +108,7 @@ function App() {
           <AppName>Interview Calendar</AppName>
           <Button fontSize={52}>+</Button>
         </Header>
-        <DatesSelectSection />
+        <DatesSelectSection interviewCalendar={{ ...interviewCalendar }} />
       </FixedTop>
       <Main>
         <Div>
