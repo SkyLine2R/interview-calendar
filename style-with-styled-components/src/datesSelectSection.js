@@ -60,37 +60,39 @@ const MonthName = styled.div`
   font-weight: 400;
   letter-spacing: -0.6px;
 `;
+const monthDayFormat = (date) => {
+  return new Date(date).getDate();
+};
 
 function DatesSelectSection({ interviewCalendar }) {
-  const { today, weekDays } = { ...interviewCalendar };
-  console.log(today);
+  const { weekDays } = interviewCalendar;
+
+  const monthAndYear = new Date(weekDays[4].date).toLocaleString("en", {
+    month: "long",
+    year: "numeric",
+  });
+
   return (
     <DatesSection>
       <TableDaysTitle>
         <TbodyDaysTitle>
           <WeekDays>
             <td></td>
-            {weekDays.map((date) => (
-              <td>{date.day}</td>
+            {weekDays.map((weekDay) => (
+              <td>{weekDay.day}</td>
             ))}
           </WeekDays>
           <MothDays>
             <td></td>
-            {/* Проверить как высчитываются даты
-    изменить сохранение date - в полном формате, чтобы можно было сравнить с текущим днём или, лучше в стартовой функции сделать пометку - today = true  чтобы уменьшить время проверок
-
-{weekDays.map((date) => (
-              <td>{date.get === }</td>
-            ))} */}
-            <td>25</td>
-            <td>26</td>
-            <td>27</td>
-            <td>28</td>
-            <td>
-              <SelectedDay>29</SelectedDay>
-            </td>
-            <td>30</td>
-            <td>31</td>
+            {weekDays.map((monthDay) => (
+              <td key={monthDay.date}>
+                {!monthDay.thisToday ? (
+                  monthDayFormat(monthDay.date)
+                ) : (
+                  <SelectedDay>{monthDayFormat(monthDay.date)}</SelectedDay>
+                )}
+              </td>
+            ))}
           </MothDays>
         </TbodyDaysTitle>
       </TableDaysTitle>
@@ -98,7 +100,7 @@ function DatesSelectSection({ interviewCalendar }) {
         <Button>
           <img src={arrowBack} alt="arrow Forward" />
         </Button>
-        <MonthName>March 2019</MonthName>
+        <MonthName>{monthAndYear}</MonthName>
         <Button>
           <img src={arrowForward} alt="arrow Forward" />
         </Button>

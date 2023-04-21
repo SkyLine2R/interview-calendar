@@ -57,31 +57,31 @@ const CellWithTime = styled.td`
   }
 `;
 
-function InterviewSection() {
+function InterviewSection(props) {
+  const { weekDays } = props.interviewCalendar;
+
   const [interviewCalendar, setInterviewCalendar] = useState([]);
   const [viewDates, setViewDates] = useState([]);
 
   return (
     <InterviewSectionWrap>
       <tbody>
-        {nowMothCalendar.map((time, index) => {
+        {weekDays.map((day, index) => {
           return (
-            <Fragment key={index}>
-              <tr>
-                <CellWithTime>
-                  {`${index < 10 ? `0${index}` : `${index}`}:00`}
-                </CellWithTime>
-                {time.map((val, index) => {
-                  return val ? (
-                    <td key={index}>
-                      <SelectedCells />
-                    </td>
-                  ) : (
-                    <td></td>
-                  );
-                })}
-              </tr>
-            </Fragment>
+            <tr id={index}>
+              <CellWithTime>
+                {`${index < 10 ? `0${index}` : `${index}`}:00`}
+              </CellWithTime>
+              {day.intervievTime?.map((val, index) => {
+                return +val === index ? (
+                  <td id={index}>
+                    <SelectedCells />
+                  </td>
+                ) : (
+                  <td></td>
+                );
+              })}
+            </tr>
           );
         })}
       </tbody>

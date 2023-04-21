@@ -22,22 +22,28 @@ const getDate = (date) =>
   }); */
 
 const watchWeek = function () {
-  const today = new Date(Date.now());
-  today.setHours(0, 0, 0);
+  const dayNow = new Date(Date.now());
+  dayNow.setHours(0, 0, 0);
 
-  const obj = { today: today, firstViewDay: today, weekDays: [] };
+  const obj = { today: +dayNow, weekDays: [] };
 
-  let dayNow = today;
   for (let i = 0; i < 7; i++) {
     obj.weekDays.push({
       day: dayNow.toString()[0],
-      date: dayNow.getDate(),
+      date: +dayNow,
       interviewTime: localStorage.getItem(dayNow.toString())?.split(",") || [],
+      thisToday: +dayNow === obj.today,
     });
-    dayNow = new Date(today.setDate(today.getDate() + i));
+    dayNow.setDate(dayNow.getDate() + 1);
   }
+  console.log("obj");
+  console.log(obj);
   return { ...obj };
 };
+
+const editOneDay = function (obj, dayDynamic) {};
+
+const startWeek = watchWeek();
 
 const AppWrapper = styled.div`
   padding-bottom: 100px;
@@ -96,11 +102,11 @@ const Div = styled.div`
 `;
 
 function App() {
-  const [interviewCalendar, setInterviewCalendar] = useState([]);
-
-  useEffect(() => {
+  const [interviewCalendar, setInterviewCalendar] = useState(startWeek);
+  // setInterviewCalendar(watchWeek);
+  /*   useEffect(() => {
     setInterviewCalendar(watchWeek());
-  }, []);
+  }, []); */
   return (
     <AppWrapper>
       <FixedTop>
@@ -112,7 +118,7 @@ function App() {
       </FixedTop>
       <Main>
         <Div>
-          <InterviewSection />
+          <InterviewSection interviewCalendar={{ ...interviewCalendar }} />
         </Div>
       </Main>
       <FixedBottom>
