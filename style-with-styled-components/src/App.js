@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import DatesSelectSection from "./datesSelectSection";
 import InterviewSection from "./interviewSection";
 import Button from "./button";
-
+import arrowForward from "./button/arrowForward.svg";
+import arrowBack from "./button/arrowBack.svg";
+import WorkWithWeek from "./classWorkWithWeek";
 // const widthFrame = window.matchMedia("screen and (max-width: 740px)").matches ?
 
 if (window.matchMedia("screen and (max-width: 740px)").matches) {
@@ -12,38 +14,8 @@ if (window.matchMedia("screen and (max-width: 740px)").matches) {
 } else {
   // ... действия, если устройство не соответствует значениям медиа-запроса
 }
-/* 
-const getDate = (date) =>
-  new Date(date).toLocaleString("en", {
-    weekday: "short",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }); */
 
-const watchWeek = function () {
-  const dayNow = new Date(Date.now());
-  dayNow.setHours(0, 0, 0);
-
-  const obj = { today: +dayNow, weekDays: [] };
-
-  for (let i = 0; i < 7; i++) {
-    obj.weekDays.push({
-      day: dayNow.toString()[0],
-      date: +dayNow,
-      interviewTime: localStorage.getItem(dayNow.toString())?.split(",") || [],
-      thisToday: +dayNow === obj.today,
-    });
-    dayNow.setDate(dayNow.getDate() + 1);
-  }
-  console.log("obj");
-  console.log(obj);
-  return { ...obj };
-};
-
-const editOneDay = function (obj, dayDynamic) {};
-
-const startWeek = watchWeek();
+const watchWeek = new WorkWithWeek();
 
 const AppWrapper = styled.div`
   padding-bottom: 100px;
@@ -92,39 +64,112 @@ const AppPanel = styled.div`
 `;
 
 const Main = styled.div`
-  margin-top: 270px;
+  margin-top: 285px;
   width: 640px;
-  overflow-x: auto;
 `;
 
-const Div = styled.div`
-  display: inline-block;
+const MonthName = styled.div`
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.6px;
 `;
 
 function App() {
-  const [interviewCalendar, setInterviewCalendar] = useState(startWeek);
+  const [interviewCalendar, setInterviewCalendar] = useState(watchWeek);
+  const [deleteEvent, setDeleteEvent] = useState([]);
+
   // setInterviewCalendar(watchWeek);
   /*   useEffect(() => {
     setInterviewCalendar(watchWeek());
   }, []); */
+
+  const monthAndYear = new Date(
+    interviewCalendar.weekDays[3].date
+  ).toLocaleString("en", {
+    month: "long",
+    year: "numeric",
+  });
+  function handleClickButton(command) {
+    watchWeek[command]();
+    setDeleteEvent([]);
+    setInterviewCalendar(() => {
+      return { ...watchWeek };
+    });
+  }
+  // Убрать "автоматическую переброску на текущий день при удалении и добавлении событий"
+  // или перебрасывать, но этот день делать по центру
+  function handleClickButtonDeleteEvent() {
+    watchWeek.deleteEvent(...deleteEvent);
+    setDeleteEvent([]);
+    setInterviewCalendar(() => {
+      return { ...watchWeek };
+    });
+  }
+
+  function handleClickAddEvent(params) {
+    watchWeek.addInterviewByClick(...params);
+    setInterviewCalendar(() => {
+      return { ...watchWeek };
+    });
+  }
+
   return (
     <AppWrapper>
       <FixedTop>
         <Header>
           <AppName>Interview Calendar</AppName>
-          <Button fontSize={52}>+</Button>
+          <Button
+            onClick={() => handleClickButton("addInterview")}
+            fontSize={52}
+          >
+            +
+          </Button>
         </Header>
-        <DatesSelectSection interviewCalendar={{ ...interviewCalendar }} />
+        <DatesSelectSection interviewCalendar={{ ...interviewCalendar }}>
+          <Button onClick={() => handleClickButton("listBack")}>
+            <img src={arrowBack} alt="arrow Back" />
+          </Button>
+          <MonthName>{monthAndYear}</MonthName>
+          <Button onClick={() => handleClickButton("listForward")}>
+            <img src={arrowForward} alt="arrow Forward" />
+          </Button>
+        </DatesSelectSection>
       </FixedTop>
-      <Main>
-        <Div>
-          <InterviewSection interviewCalendar={{ ...interviewCalendar }} />
-        </Div>
+      <Main
+        onClick={(e) => {
+          if (e.target.tagName === "DIV") {
+            setDeleteEvent([
+              e.nativeEvent.path[1].getAttribute("wday"),
+              e.nativeEvent.path[2].getAttribute("time"),
+            ]);
+          } else {
+            setDeleteEvent([]);
+            if (
+              e.nativeEvent.path[0].getAttribute("wday") &&
+              e.nativeEvent.path[1].getAttribute("time")
+            )
+              handleClickAddEvent([
+                e.nativeEvent.path[0].getAttribute("wday"),
+                e.nativeEvent.path[1].getAttribute("time"),
+              ]);
+          }
+          /*           console.log(e.target.tagName);
+          alert(e.target);
+          console.log(e.target.key);
+          console.log(e.nativeEvent.path[1]);  */
+        }}
+      >
+        <InterviewSection interviewCalendar={{ ...interviewCalendar }} />
       </Main>
       <FixedBottom>
         <AppPanel>
-          <Button>Today</Button>
-          <Button hide={false}>Delete</Button>
+          <Button onClick={() => handleClickButton("goToday")}>Today</Button>
+          <Button
+            onClick={() => handleClickButtonDeleteEvent()}
+            hide={!deleteEvent.length}
+          >
+            Delete
+          </Button>
         </AppPanel>
       </FixedBottom>
     </AppWrapper>

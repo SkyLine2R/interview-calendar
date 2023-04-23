@@ -1,7 +1,4 @@
 import styled from "styled-components";
-import Button from "./button";
-import arrowForward from "./button/arrowForward.svg";
-import arrowBack from "./button/arrowBack.svg";
 
 const DatesSection = styled.div`
   display: flex;
@@ -55,23 +52,12 @@ const MonthSelect = styled.div`
   justify-content: space-between;
 `;
 
-const MonthName = styled.div`
-  font-size: 24px;
-  font-weight: 400;
-  letter-spacing: -0.6px;
-`;
 const monthDayFormat = (date) => {
   return new Date(date).getDate();
 };
 
-function DatesSelectSection({ interviewCalendar }) {
+function DatesSelectSection({ interviewCalendar, children }) {
   const { weekDays } = interviewCalendar;
-
-  const monthAndYear = new Date(weekDays[4].date).toLocaleString("en", {
-    month: "long",
-    year: "numeric",
-  });
-
   return (
     <DatesSection>
       <TableDaysTitle>
@@ -96,15 +82,7 @@ function DatesSelectSection({ interviewCalendar }) {
           </MothDays>
         </TbodyDaysTitle>
       </TableDaysTitle>
-      <MonthSelect>
-        <Button>
-          <img src={arrowBack} alt="arrow Forward" />
-        </Button>
-        <MonthName>{monthAndYear}</MonthName>
-        <Button>
-          <img src={arrowForward} alt="arrow Forward" />
-        </Button>
-      </MonthSelect>
+      <MonthSelect>{children}</MonthSelect>
     </DatesSection>
   );
 }

@@ -1,31 +1,11 @@
 import styled from "styled-components";
-import { Fragment, useState } from "react";
-
-const daysInMonth = function (myDate) {
-  return 33 - new Date(myDate.getFullYear(), myDate.getMonth(), 33).getDate();
-};
-
-const createMonthCalendar = function (calendarDate) {
-  const daysInMoth = daysInMonth(calendarDate);
-  let elements = [];
-  for (let hours = 0; hours < 24; hours++) {
-    elements.push([0]);
-    for (let day = 1; day <= daysInMoth; day++) {
-      // рандомные данные для таблицы
-      // заменить на подстановку данных БД (1-событие 0-ничего)
-      elements[hours].push(Math.round(Math.random()));
-    }
-  }
-  return elements;
-};
-
-const nowMothCalendar = createMonthCalendar(new Date(Date.now()));
+import { useState } from "react";
 
 const InterviewSectionWrap = styled.table`
   border-collapse: collapse;
   width: 100%;
   td {
-    width: 67px; // 5rem
+    width: 5rem;
     height: 67px;
     background-color: white;
     border: 2px solid #dcdcdc;
@@ -58,27 +38,22 @@ const CellWithTime = styled.td`
 `;
 
 function InterviewSection(props) {
-  const { weekDays } = props.interviewCalendar;
-
-  const [interviewCalendar, setInterviewCalendar] = useState([]);
-  const [viewDates, setViewDates] = useState([]);
+  const { interviewTimeArr } = props.interviewCalendar;
 
   return (
     <InterviewSectionWrap>
       <tbody>
-        {weekDays.map((day, index) => {
+        {interviewTimeArr.map((day, index1) => {
           return (
-            <tr id={index}>
+            <tr time={index1} key={index1}>
               <CellWithTime>
-                {`${index < 10 ? `0${index}` : `${index}`}:00`}
+                {`${index1 < 10 ? `0${index1}` : `${index1}`}:00`}
               </CellWithTime>
-              {day.intervievTime?.map((val, index) => {
-                return +val === index ? (
-                  <td id={index}>
-                    <SelectedCells />
+              {day.map((select, index2) => {
+                return (
+                  <td wday={index2} key={index2}>
+                    {!select || <SelectedCells wday={index2} />}
                   </td>
-                ) : (
-                  <td></td>
                 );
               })}
             </tr>

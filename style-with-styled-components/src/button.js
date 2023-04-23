@@ -6,7 +6,7 @@ const Mybutton = styled.button`
   border: none;
   background: none;
   color: red;
-  display: ${!((props) => props.hide || "none")};
+  display: ${(props) => props.hide && "none"};
   animation-duration: 1s;
   transition: all 0.1s ease-out;
   :hover {
@@ -14,10 +14,9 @@ const Mybutton = styled.button`
     opacity: 0.9;
   }
 `;
-
-function Button({ children, fontSize = 28, hide = false }) {
+function Button({ children, fontSize = 28, hide = false, onClick }) {
   return (
-    <Mybutton fontSize={fontSize} hide={hide}>
+    <Mybutton fontSize={fontSize} hide={hide} onClick={onClick}>
       {children}
     </Mybutton>
   );
