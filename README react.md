@@ -1,3 +1,8 @@
+#Тестовое задание на вакансию стажёра
+Web-приложение Interview Calendar
+Создано на React с использованием Create React App и styled-components.
+Рабочая версия развёрнута на https://interview-calendar-production.up.railway.app/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
