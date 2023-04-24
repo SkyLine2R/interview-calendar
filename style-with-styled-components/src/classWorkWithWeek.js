@@ -65,10 +65,10 @@ export default class WorkWithWeek {
     if (newArr.length) localStorage.setItem(dayForDeleteEvent, newArr.join());
     else localStorage.removeItem(dayForDeleteEvent);
 
-    this.#refreshData(new Date(this.today));
+    this.#refreshData();
   }
 
-  #refreshData(dayNow) {
+  #refreshData(dayNow = new Date(this.weekDays[0].date)) {
     this.weekDays = [];
     this.interviewTimeArr = [];
 
@@ -107,7 +107,7 @@ export default class WorkWithWeek {
       );
 
     localStorage.setItem(+date, [...interviewTimeArr, time].join());
-    this.#refreshData(date);
+    this.#refreshData();
   }
 
   #list(corr) {

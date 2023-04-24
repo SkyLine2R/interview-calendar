@@ -9,22 +9,42 @@ import arrowBack from "./button/arrowBack.svg";
 import WorkWithWeek from "./classWorkWithWeek";
 // const widthFrame = window.matchMedia("screen and (max-width: 740px)").matches ?
 
-if (window.matchMedia("screen and (max-width: 740px)").matches) {
+/* if (window.matchMedia("screen and (max-width: 740px)").matches) {
   console.log("Меньше 740");
 } else {
   // ... действия, если устройство не соответствует значениям медиа-запроса
-}
+} */
+
+const windowInnerWidth = `${
+  window.innerWidth <= 500
+    ? 500
+    : window.innerWidth >= 720
+    ? 720
+    : window.innerWidth
+}px`;
 
 const watchWeek = new WorkWithWeek();
 
 const AppWrapper = styled.div`
+  background-color: red;
+
+  display: flex;
   padding-bottom: 100px;
+  width: clamp(500px, 100vw, 740px);
+
+  /*   max-width: 740px;
+  min-width: 500px;
+  width: 100vw; */
+  // width: calc(500px + (740 - 500) * ((100vw - 500px) / (1920 - 500)));
+  /*   width: ${windowInnerWidth};
+ */
 `;
 
 const Fixed = styled.div`
   position: fixed;
+  /*   width: ${windowInnerWidth}; */
+  width: clamp(500px, 100vw, 740px);
   z-index: 500;
-  width: 640px;
 `;
 
 const FixedTop = styled(Fixed)`
@@ -65,7 +85,7 @@ const AppPanel = styled.div`
 
 const Main = styled.div`
   margin-top: 285px;
-  width: 640px;
+  width: 100%;
 `;
 
 const MonthName = styled.div`
@@ -78,17 +98,13 @@ function App() {
   const [interviewCalendar, setInterviewCalendar] = useState(watchWeek);
   const [deleteEvent, setDeleteEvent] = useState([]);
 
-  // setInterviewCalendar(watchWeek);
-  /*   useEffect(() => {
-    setInterviewCalendar(watchWeek());
-  }, []); */
-
   const monthAndYear = new Date(
     interviewCalendar.weekDays[3].date
   ).toLocaleString("en", {
     month: "long",
     year: "numeric",
   });
+
   function handleClickButton(command) {
     watchWeek[command]();
     setDeleteEvent([]);
@@ -96,8 +112,7 @@ function App() {
       return { ...watchWeek };
     });
   }
-  // Убрать "автоматическую переброску на текущий день при удалении и добавлении событий"
-  // или перебрасывать, но этот день делать по центру
+
   function handleClickButtonDeleteEvent() {
     watchWeek.deleteEvent(...deleteEvent);
     setDeleteEvent([]);
@@ -137,26 +152,19 @@ function App() {
       </FixedTop>
       <Main
         onClick={(e) => {
-          if (e.target.tagName === "DIV") {
+          const tt = e.target;
+          if (tt.tagName === "DIV") {
             setDeleteEvent([
-              e.nativeEvent.path[1].getAttribute("wday"),
-              e.nativeEvent.path[2].getAttribute("time"),
+              tt.parentNode.getAttribute("wday"),
+              tt.parentNode.parentNode.getAttribute("time"),
             ]);
           } else {
             setDeleteEvent([]);
-            if (
-              e.nativeEvent.path[0].getAttribute("wday") &&
-              e.nativeEvent.path[1].getAttribute("time")
-            )
-              handleClickAddEvent([
-                e.nativeEvent.path[0].getAttribute("wday"),
-                e.nativeEvent.path[1].getAttribute("time"),
-              ]);
+            const wdayAttrib = tt.getAttribute("wday");
+            const timeAttrib = tt.parentNode.getAttribute("time");
+            if (wdayAttrib && timeAttrib)
+              handleClickAddEvent([wdayAttrib, timeAttrib]);
           }
-          /*           console.log(e.target.tagName);
-          alert(e.target);
-          console.log(e.target.key);
-          console.log(e.nativeEvent.path[1]);  */
         }}
       >
         <InterviewSection interviewCalendar={{ ...interviewCalendar }} />

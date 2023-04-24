@@ -38,7 +38,9 @@ const SelectedDay = styled.div`
   border: 8px solid red;
   background-color: red;
   border-radius: 100%;
-  width: 65%;
+  /*   width: clamp(80%, 100%, 80%);
+ */
+  width: clamp(75%, calc(60% + 2vh), 60%);
   height: 80%;
   margin: 0 auto;
 `;

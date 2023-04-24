@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { useState } from "react";
 
 const InterviewSectionWrap = styled.table`
   border-collapse: collapse;
   width: 100%;
   td {
-    width: 5rem;
-    height: 67px;
+    width: calc(100% / 8);
+    height: calc(92px - 100vh / 40);
     background-color: white;
     border: 2px solid #dcdcdc;
   }
@@ -15,8 +14,8 @@ const InterviewSectionWrap = styled.table`
   }
 `;
 const SelectedCells = styled.div`
-  width: 96%;
-  height: 96%;
+  width: 95%;
+  height: 95%;
   margin: auto;
   background-color: #ebecff;
 `;
