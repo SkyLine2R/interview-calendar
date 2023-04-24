@@ -3,21 +3,31 @@ import styled from "styled-components";
 const InterviewSectionWrap = styled.table`
   border-collapse: collapse;
   width: 100%;
+
   td {
     width: calc(100% / 8);
-    height: calc(92px - 100vh / 40);
+    height: calc(62px + (80 - 60) * ((90vw - 300px) / (1920 - 500)));
     background-color: white;
     border: 2px solid #dcdcdc;
+    @media (max-width: 720px) {
+      height: 52px;
+    }
   }
   td:hover {
+    transition: background-color 0.3s ease-in-out;
     background-color: rgb(214, 197, 255);
   }
 `;
 const SelectedCells = styled.div`
   width: 95%;
   height: 95%;
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
   margin: auto;
   background-color: #ebecff;
+  @media (max-width: 720px) {
+    height: 46px;
+  }
 `;
 
 const CellWithTime = styled.td`

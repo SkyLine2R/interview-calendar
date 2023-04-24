@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import DatesSelectSection from "./datesSelectSection";
 import InterviewSection from "./interviewSection";
@@ -7,44 +7,24 @@ import Button from "./button";
 import arrowForward from "./button/arrowForward.svg";
 import arrowBack from "./button/arrowBack.svg";
 import WorkWithWeek from "./classWorkWithWeek";
-// const widthFrame = window.matchMedia("screen and (max-width: 740px)").matches ?
-
-/* if (window.matchMedia("screen and (max-width: 740px)").matches) {
-  console.log("Меньше 740");
-} else {
-  // ... действия, если устройство не соответствует значениям медиа-запроса
-} */
-
-const windowInnerWidth = `${
-  window.innerWidth <= 500
-    ? 500
-    : window.innerWidth >= 720
-    ? 720
-    : window.innerWidth
-}px`;
 
 const watchWeek = new WorkWithWeek();
 
 const AppWrapper = styled.div`
-  background-color: red;
-
   display: flex;
   padding-bottom: 100px;
-  width: clamp(500px, 100vw, 740px);
-
-  /*   max-width: 740px;
-  min-width: 500px;
-  width: 100vw; */
-  // width: calc(500px + (740 - 500) * ((100vw - 500px) / (1920 - 500)));
-  /*   width: ${windowInnerWidth};
- */
+  @media (max-width: 720px) {
+    padding-bottom: 80px;
+  }
 `;
 
 const Fixed = styled.div`
   position: fixed;
-  /*   width: ${windowInnerWidth}; */
   width: clamp(500px, 100vw, 740px);
   z-index: 500;
+  @media (max-width: 720px) {
+    width: 98%;
+  }
 `;
 
 const FixedTop = styled(Fixed)`
@@ -62,12 +42,19 @@ const Header = styled.div`
   align-items: center;
   height: 130px;
   background-color: white;
+  @media (max-width: 720px) {
+    padding: 0px 24px;
+    height: 110px;
+  }
 `;
 
 const AppName = styled.h1`
   font-size: 38px;
   font-weight: 300;
   letter-spacing: -1.2px;
+  @media (max-width: 720px) {
+    font-size: 36px;
+  }
 `;
 
 const AppPanel = styled.div`
@@ -78,6 +65,9 @@ const AppPanel = styled.div`
   width: 100%;
   height: 90px;
   border-top: 2px solid #f6f6f6;
+  @media (max-width: 720px) {
+    height: 70px;
+  }
   Button {
     margin: auto 50px;
   }
@@ -86,6 +76,9 @@ const AppPanel = styled.div`
 const Main = styled.div`
   margin-top: 285px;
   width: 100%;
+  @media (max-width: 720px) {
+    margin-top: 260px;
+  }
 `;
 
 const MonthName = styled.div`

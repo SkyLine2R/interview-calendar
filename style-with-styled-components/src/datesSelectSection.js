@@ -9,13 +9,12 @@ const DatesSection = styled.div`
   border-color: #dcdcdc;
   border-width: 1px;
   height: 144px;
-  width: 100%;
 `;
 const TableDaysTitle = styled.table`
   width: 100%;
   padding-top: 13px;
   td {
-    width: 12.5%;
+    width: calc(100% / 8);
   }
 `;
 const TbodyDaysTitle = styled.tbody`
@@ -38,10 +37,8 @@ const SelectedDay = styled.div`
   border: 8px solid red;
   background-color: red;
   border-radius: 100%;
-  /*   width: clamp(80%, 100%, 80%);
- */
-  width: clamp(75%, calc(60% + 2vh), 60%);
-  height: 80%;
+  width: 50px;
+  height: 50px;
   margin: 0 auto;
 `;
 const MonthSelect = styled.div`

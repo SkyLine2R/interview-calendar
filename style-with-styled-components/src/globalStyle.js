@@ -13,8 +13,11 @@ html {
     margin: 0
 }
 body {
-    width: 640px;
+    width: clamp(500px, 100vw, 740px);
     margin: auto;
+      @media (max-width: 720px) {
+    width: 98%;
+  }
 }
 `;
 
