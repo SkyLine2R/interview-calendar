@@ -6,11 +6,14 @@ const InterviewSectionWrap = styled.table`
 
   td {
     width: calc(100% / 8);
-    height: calc(62px + (80 - 60) * ((90vw - 300px) / (1920 - 500)));
+    height: 66px;
     background-color: white;
     border: 2px solid #dcdcdc;
     @media (max-width: 720px) {
-      height: 52px;
+      height: 54px;
+    }
+    @media (max-width: 640px) {
+      height: 44px;
     }
   }
   td:hover {
@@ -19,15 +22,10 @@ const InterviewSectionWrap = styled.table`
   }
 `;
 const SelectedCells = styled.div`
-  width: 95%;
-  height: 95%;
-  width: calc(100% - 6px);
-  height: calc(100% - 6px);
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
   margin: auto;
   background-color: #ebecff;
-  @media (max-width: 720px) {
-    height: 46px;
-  }
 `;
 
 const CellWithTime = styled.td`

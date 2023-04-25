@@ -3,9 +3,7 @@ import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
 
 html {
-    height: 100%;
     font-family: 'Roboto', sans-serif;
-    font-weight: 400;
 }
 * {
     box-sizing: border-box;

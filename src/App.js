@@ -11,7 +11,6 @@ import WorkWithWeek from "./classWorkWithWeek";
 const watchWeek = new WorkWithWeek();
 
 const AppWrapper = styled.div`
-  display: flex;
   padding-bottom: 100px;
   @media (max-width: 720px) {
     padding-bottom: 80px;

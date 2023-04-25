@@ -2,12 +2,10 @@ import styled from "styled-components";
 
 const Mybutton = styled.button`
   font-size: ${(props) => props.fontSize}px;
-  padding: 0;
   border: none;
   background: none;
   color: red;
   display: ${(props) => props.hide && "none"};
-  animation-duration: 1s;
   transition: all 0.2s ease-in-out;
   :hover {
     transform: scale(1.3);
