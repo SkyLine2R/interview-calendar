@@ -45,11 +45,11 @@ export default class WorkWithWeek {
 
   addInterviewByClick(wDay, time) {
     const date = new Date(this.weekDays[wDay].date);
-    const str = `${date.getFullYear()}:${
+    const str = `${date.getFullYear()}-${
       date.getMonth() + 1 < 10
         ? `0${date.getMonth() + 1}`
         : `${date.getMonth() + 1}`
-    }:${date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`} ${
+    }-${date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`} ${
       time < 10 ? `0${time}` : time
     }:00:00`;
 
