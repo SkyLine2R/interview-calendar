@@ -23,16 +23,16 @@ export default class WorkWithWeek {
     return this;
   }
 
-  addInterview(def = "0000:00:00 00:00:00") {
+  addInterview(def = "0000-00-00 00:00:00") {
     const input = prompt(
-      "Enter event time: \n YYYY:MM:DD HH:mm:ss",
+      "Enter event time: \n YYYY-MM-DD HH:mm:ss",
       def
     )?.trim();
 
-    if (!input || !/[1-2]\d{3}:[0-1]\d:[0-3]\d [0-2]\d/.test(input))
+    if (!input || !/[1-2]\d{3}-[0-1]\d-[0-3]\d [0-2]\d/.test(input))
       return alert("Invalid data entered. Event not added.");
 
-    const date = new Date(`${input.split(" ")[0].replaceAll(":", "-")}`);
+    const date = new Date(`${input.split(" ")[0]}`);
     const time = +input.split(" ")[1].split(":")[0];
 
     if (date === "Invalid Date")
